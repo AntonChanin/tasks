@@ -1,0 +1,60 @@
+$beruza: #00ffff;
+.klaviatura{
+    width: 740px;
+    margin: 0 auto;
+	.row{
+		width: 100%;
+		height: 40px;
+		margin-bottom: 10px;
+		clear: both;
+	}
+	 .key{
+		width: 40px;
+		height: 40px;
+		float: left;
+		cursor: pointer;
+		color: #000000;
+		margin-left: 6px;
+		text-align: center;
+		line-height: 40px;
+		 background: linear-gradient(to top, silver, aqua);
+		box-shadow:
+		  -1px 0px  $beruza, -1px 1px  $beruza,
+		  -2px 1px  $beruza, -2px 2px  $beruza,
+		  -3px 2px  $beruza, -3px 3px  $beruza,
+		  -4px 3px  $beruza, -4px 4px  $beruza,
+		  -5px 4px  $beruza, -5px 5px  $beruza,
+		  -6px 5px  $beruza, -6px 6px  $beruza;
+	}
+	.key:hover{
+		background: #f9de53;
+	}
+	.backspace, .shift, .capslock{
+		width: 100px;
+	}
+	 .capslock, .shift{
+	color: #000000;
+	}
+	 .tab{
+		width: 80px;
+	}
+	 .space{
+		width: 300px;
+		margin-left: 127px;
+	}
+	 sup{
+		margin: -10px 0 0 -24px;
+		font-size: 12px;
+		position: absolute;
+	}
+}
+#result{
+    width: 680px;
+    height: 80px;
+    margin: 0 auto;
+    display: block;
+    padding: 10px;
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 10px;
+}

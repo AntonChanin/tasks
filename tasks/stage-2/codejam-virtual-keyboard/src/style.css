@@ -1,0 +1,56 @@
+.klaviatura {
+  width: 740px;
+  margin: 0 auto;
+}
+.klaviatura .row {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  clear: both;
+}
+.klaviatura .key {
+  width: 40px;
+  height: 40px;
+  float: left;
+  cursor: pointer;
+  color: #000000;
+  margin-left: 6px;
+  text-align: center;
+  line-height: 40px;
+  background: linear-gradient(to top, silver, aqua);
+  box-shadow: -1px 0px #00ffff, -1px 1px #00ffff, -2px 1px #00ffff, -2px 2px #00ffff, -3px 2px #00ffff, -3px 3px #00ffff, -4px 3px #00ffff, -4px 4px #00ffff, -5px 4px #00ffff, -5px 5px #00ffff, -6px 5px #00ffff, -6px 6px #00ffff;
+}
+.klaviatura .key:hover {
+  background: #f9de53;
+}
+.klaviatura .backspace, .klaviatura .shift, .klaviatura .capslock {
+  width: 100px;
+}
+.klaviatura .capslock, .klaviatura .shift {
+  color: #000000;
+}
+.klaviatura .tab {
+  width: 80px;
+}
+.klaviatura .space {
+  width: 300px;
+  margin-left: 127px;
+}
+.klaviatura sup {
+  margin: -10px 0 0 -24px;
+  font-size: 12px;
+  position: absolute;
+}
+
+#result {
+  width: 680px;
+  height: 80px;
+  margin: 0 auto;
+  display: block;
+  padding: 10px;
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */
