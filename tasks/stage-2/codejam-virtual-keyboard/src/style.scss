@@ -8,7 +8,11 @@ $beruza: #00ffff;
 		margin-bottom: 10px;
 		clear: both;
 	}
-	 .key{
+	.up {
+	    position: relative;
+		left: 47px;
+	}
+	 .key {
 		width: 40px;
 		height: 40px;
 		float: left;
@@ -27,6 +31,9 @@ $beruza: #00ffff;
 		  -6px 5px  $beruza, -6px 6px  $beruza;
 	}
 	.key:hover{
+		background: #f9de53;
+	}
+	.use {
 		background: #f9de53;
 	}
 	.backspace, .shift, .capslock{
