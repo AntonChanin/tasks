@@ -104,6 +104,7 @@ window.onkeyup = function (event) {
         case 'b': document.body.querySelector('.B').classList.remove('use'); break;
         case 'n': document.body.querySelector('.N').classList.remove('use'); break;
         case 'm': document.body.querySelector('.M').classList.remove('use'); break;
+        case '\\': document.body.querySelector('.spec1').classList.remove('use'); break;
 
         case 'Й': document.body.querySelector('.ii').classList.remove('use'); break;
         case 'Ц': document.body.querySelector('.ce').classList.remove('use'); break;
@@ -239,6 +240,7 @@ window.onkeydown = function (event) {
         case 'J': document.body.querySelector('.' + event.key).classList.add('use'); break;
         case 'K': document.body.querySelector('.' + event.key).classList.add('use'); break;
         case 'L': document.body.querySelector('.' + event.key).classList.add('use'); break;
+        case '\\': document.body.querySelector('.spec1').classList.add('use'); break;
 
         case 'Й': document.body.querySelector('.ii').classList.add('use'); break;
         case 'Ц': document.body.querySelector('.ce').classList.add('use'); break;
