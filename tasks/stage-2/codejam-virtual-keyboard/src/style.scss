@@ -10,7 +10,19 @@ $beruza: #00ffff;
 	}
 	.up {
 	    position: relative;
-		left: 47px;
+		left: 18px;
+	}
+	.enter {
+    	width: 84px;
+	    height: 40px;
+	    float: left;
+	    cursor: pointer;
+	    color: #000000;
+	    margin-left: 6px;
+	    text-align: center;
+	    line-height: 40px;
+	    background: linear-gradient(to top, silver, aqua);
+	    box-shadow: -1px 0px #00ffff, -1px 1px #00ffff, -2px 1px #00ffff, -2px 2px #00ffff, -3px 2px #00ffff, -3px 3px #00ffff, -4px 3px #00ffff, -4px 4px #00ffff, -5px 4px #00ffff, -5px 5px #00ffff, -6px 5px #00ffff, -6px 6px #00ffff;
 	}
 	 .key {
 		width: 40px;
@@ -35,9 +47,15 @@ $beruza: #00ffff;
 	}
 	.use {
 		background: #f9de53;
+		box-shadow:
+		  -1px 0px  $beruza, -1px 1px  $beruza,
+		  -2px 1px  $beruza, -2px 2px  $beruza,
+		  -3px 2px  $beruza, -3px 3px  $beruza;
+		position: relative;
+		left: -3px;
 	}
 	.backspace, .shift, .capslock{
-		width: 100px;
+		width: 128px;
 	}
 	 .capslock, .shift{
 	color: #000000;
