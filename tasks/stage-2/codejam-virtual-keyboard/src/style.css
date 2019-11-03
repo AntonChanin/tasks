@@ -34,13 +34,15 @@
   text-align: center;
   line-height: 40px;
   background: linear-gradient(to top, silver, aqua);
+  border: #00ffff solid 0px;
   box-shadow: -1px 0px #00ffff, -1px 1px #00ffff, -2px 1px #00ffff, -2px 2px #00ffff, -3px 2px #00ffff, -3px 3px #00ffff, -4px 3px #00ffff, -4px 4px #00ffff, -5px 4px #00ffff, -5px 5px #00ffff, -6px 5px #00ffff, -6px 6px #00ffff;
 }
 .klaviatura .key:hover {
-  background: #f9de53;
+  background: #ffffff;
 }
 .klaviatura .use {
-  background: #f9de53;
+  background: #ffffff;
+  border: #00ffff solid 1px;
   box-shadow: -1px 0px #00ffff, -1px 1px #00ffff, -2px 1px #00ffff, -2px 2px #00ffff, -3px 2px #00ffff, -3px 3px #00ffff;
   position: relative;
   left: -3px;

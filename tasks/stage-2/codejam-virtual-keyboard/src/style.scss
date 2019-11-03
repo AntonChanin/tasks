@@ -34,6 +34,7 @@ $beruza: #00ffff;
 		text-align: center;
 		line-height: 40px;
 		 background: linear-gradient(to top, silver, aqua);
+		 border: $beruza solid 0px;
 		box-shadow:
 		  -1px 0px  $beruza, -1px 1px  $beruza,
 		  -2px 1px  $beruza, -2px 2px  $beruza,
@@ -43,10 +44,11 @@ $beruza: #00ffff;
 		  -6px 5px  $beruza, -6px 6px  $beruza;
 	}
 	.key:hover{
-		background: #f9de53;
+		background: #ffffff;
 	}
 	.use {
-		background: #f9de53;
+		background: #ffffff;
+		border: $beruza solid 1px;
 		box-shadow:
 		  -1px 0px  $beruza, -1px 1px  $beruza,
 		  -2px 1px  $beruza, -2px 2px  $beruza,
