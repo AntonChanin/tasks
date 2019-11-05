@@ -184,7 +184,7 @@ window.onkeydown = function (event) {
     	if (prev != undefined ) {
     		if (prev.key == "Shift" && event.key == "Alt") {
                 ru = !ru; 
-            }
+            } 
     	}   
     }
     setTimeout(checkPrevKey(prev, event), 1000);
