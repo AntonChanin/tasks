@@ -5,8 +5,8 @@ const sizeInput = document.querySelector('input');
 const small = matrixs.querySelector('#small');
 const medium = matrixs.querySelector('#medium');
 const big = matrixs.querySelector('#big');
-const redchoose = colors.querySelector('#red');
-const bluechoose = colors.querySelector('#blue');
+const redChoose = colors.querySelector('#red');
+const blueChoose = colors.querySelector('#blue');
 
 var currentcolor = undefined;
 var md = false;
@@ -102,7 +102,6 @@ medium.addEventListener('click', function () {
                 for (var col = 0; col < width; col++) { // Since there are nested arrays we need two for loops
                     ctx.fillStyle = 'rgba(' + data[row][col] + ')'; // Set the color to the one specified
                     ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
-                    console.log('rgba(' + data[row][col] + ');');
                 }
             };
         }
@@ -143,12 +142,10 @@ workSpace.addEventListener('mousemove',
 
 function down() {
     md = true;
-    console.log('down');
 }
 
 function toggledraw() {
     md = false;
-    console.log('toggledraw');
 }
 
 function getMousePos(canvas, evt) {
@@ -168,12 +165,10 @@ function draw(canvas, posx, posy) {
 
 function chooseColor(context) {
     let ctx = workSpace.getContext("2d");
-    if (context == redchoose) {
+    if (context == redChoose) {
         currentColor = 'red';
-        console.log(currentColor);
-    } else if (context == bluechoose) {
+    } else if (context == blueChoose) {
         currentColor = 'blue';
-        console.log(currentColor);
     }
     ctx.fillStyle = currentColor;
 }
