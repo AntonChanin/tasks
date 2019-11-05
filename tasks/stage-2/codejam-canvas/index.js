@@ -48,7 +48,6 @@ small.addEventListener('click', function () {
             // Make sure the canvas is no larger than the size we need
             canvas.width = width * scale;
             canvas.height = height * scale;
-
             // Loop through each color and draw that section
             for (var row = 0; row < height; row++) {
                 for (var col = 0; col < width; col++) { // Since there are nested arrays we need two for loops
