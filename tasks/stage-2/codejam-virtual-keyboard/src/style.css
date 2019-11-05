@@ -1,3 +1,12 @@
+.decorate {
+  background: #ffffff;
+  width: 97vw;
+  z-index: 2;
+  height: 61%;
+  position: absolute;
+  bottom: 0;
+}
+
 .klaviatura {
   width: 740px;
   margin: 0 auto;
