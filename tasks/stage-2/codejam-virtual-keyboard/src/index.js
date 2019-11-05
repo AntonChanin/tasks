@@ -2,7 +2,7 @@ var ru = true;
 var tabIsPressed = false;
 var prev = undefined;
 var hotKey = ["Shift", "Control"];
-let input = document.createElement('input')
+let input = document.createElement('textarea')
 document.body.appendChild(input).id = "result";
 let div = document.createElement('div');
 document.body.appendChild(div);
@@ -59,7 +59,7 @@ window.onkeyup = function (event) {
         case 'CapsLock': document.body.querySelector('.capslock').classList.remove('use'); break;
         case 'Shift': document.body.querySelector('.shift').classList.remove('use'); break;
         case 'Alt': document.body.querySelector('.alt').classList.remove('use'); break;
-        case 'Control': document.body.querySelector('.ctrl').classList.add('use'); break;
+        case 'Control': document.body.querySelector('.ctrl').classList.remove('use'); break;
         case 'Meta': document.body.querySelector('.win').classList.remove('use'); break;
         case 'Delete': document.body.querySelector('.del').classList.remove('use'); break;
         case 'ArrowUp': document.body.querySelector('.up').classList.remove('use'); break;
@@ -192,7 +192,6 @@ window.onkeydown = function (event) {
         if (document.body.querySelector('.klaviatura') != null) {
             document.body.querySelector('.klaviatura').remove();
         }
-        console.log(document.body.querySelector('input'));
         div.innerHTML += '<div class="klaviatura"><div class="row"><div class="key io"><span>ё</span><sup>~</sup></div><div class="key one"><span>1</span><sup>!</sup></div><div class="key two"><span>2</span><sup>@</sup></div><div class="key tree"><span>3</span><sup>#</sup></div><div class="key four"><span>4</span><sup> $</sup></div><div class="key five"><span>5</span><sup>%</sup></div><div class="key six"><span>6</span><sup>^</sup></div><div class="key seven"><span>7</span><sup>?</sup></div><div class="key eight"><span>8</span><sup>*</sup></div><div class="key nine"><span>9</span><sup>(</sup></div><div class="key zero"><span>0</span><sup>)</sup></div><div class="key sub"><span>-</span><sup>_</sup></div><div class="key equal"><span>=</span><sup>+</sup></div><div class="key backspace"><span>Backspace</span></div></div><div class="row"><div class="key tab"><span>Tab</span></div><div class="key ii"><span>й</span></div><div class="key ce"><span>ц</span></div><div class="key uu"><span>у</span></div><div class="key k"><span>к</span></div><div class="key e"><span>е</span></div><div class="key n"><span>н</span></div><div class="key g"><span>г</span></div> <div class="key sh"><span>ш</span></div><div class="key sch"><span>щ</span></div><div class="key zz"><span>з</span></div><div class="key hh"><span>х</span></div><div class="key hard"><span>ъ</span></div><div class="key spec1"><span>&#92</span></div><div class="key del"><span>Del</span></div></div><div class="row"><div class="key capslock"><span>Caps Lock</span></div><div class="key ff"><span>ф</span></div><div class="key ihard"><span>ы</span></div><div class="key vv"><span>в</span></div><div class="key aa"><span>а</span></div><div class="key p"><span>п</span></div><div class="key rr"><span>р</span></div><div class="key o"><span>о</span></div><div class="key l"><span>л</span></div><div class="key d"><span>д</span></div><div class="key je"><span>ж</span></div><div class="key ie"><span>э</span></div><div class="enter"><span>Enter</span></div></div><div class="row"><div class="key shift"><span>Shift</span></div><div class="key ia"><span>я</span></div><div class="key ch"><span>ч</span></div><div class="key se"><span>с</span></div><div class="key m"><span>м</span></div><div class="key i"><span>и</span></div><div class="key t"><span>т</span></div><div class="key soft"><span>ь</span></div><div class="key b"><span>б</span></div><div class="key iu"><span>ю</span></div><div class="key"><span>&#47</span></div><div class="key up"><span>^</span></div></div><div class="row"><div class="key ctrl"><span>Ctrl</span></div><div class="key win"><span>Win</span></div><div class="key alt"><span>Alt</span></div><div class="key space"></div><div class="key left"><span><</span></div><div class="key down"><span>v</span></div><div class="key right"><span>></span></div></div>';
     } else {
         if (document.body.querySelector('.klaviatura') != null) {
@@ -362,7 +361,6 @@ window.onkeydown = function (event) {
         let select = document.body.querySelector('.Backquote');
        
         select.classList.add('use');
-       // let input = document.querySelector('input').value += document.body.querySelector('.Backquote').childNodes[0].innerHTML;
    }
    
 }
