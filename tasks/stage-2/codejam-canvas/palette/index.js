@@ -23,6 +23,17 @@ workSpace.addEventListener('mousedown', down);
 workSpace.addEventListener('mouseup', toggledraw);
 currentColorTool.style.background = currentColor;
 
+let idt = localStorage.getItem('imgData') || null;
+if (idt !== null) {
+    let img = new Image;
+    img.src = idt;
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0, 512, 512);
+    };
+}
+
+
+
 small.addEventListener('click', function () {
     let ref = 'https://raw.githubusercontent.com/AntonChanin/tasks/master/tasks/stage-2/codejam-canvas/data/4x4.json';
     var getJSON = function (url, callback) {
@@ -67,7 +78,7 @@ small.addEventListener('click', function () {
             };
         }
     });
-
+    localStorage.setItem('imgData', canvas.toDataURL());
 });
 
 medium.addEventListener('click', function () {
@@ -113,9 +124,11 @@ medium.addEventListener('click', function () {
                     ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
                 }
             };
+            localStorage.setItem('imgData', canvas.toDataURL());
         }
     });
     workSpace.classList.remove('big');
+    
 });
 
 big.addEventListener('click', function () {
@@ -138,6 +151,7 @@ big.addEventListener('click', function () {
     drawing.onload = function () {
         ctx.drawImage(drawing, 0, 0);
     };
+    localStorage.setItem('imgData', canvas.toDataURL());
 });
 
 function down() {
@@ -265,6 +279,7 @@ canvas.onmousedown = function (event) {
             prevColorTool.style.background = prevColor;
 
         } else {
+            localStorage.setItem('imgData', canvas.toDataURL());
             let x = event.offsetX;
             let y = event.offsetY;
             ctx.fillRect(x - 5, y - 5, 10, 10);
