@@ -76,9 +76,9 @@ small.addEventListener('click', function () {
                     ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
                 }
             };
+            localStorage.setItem('imgData', canvas.toDataURL());
         }
     });
-    localStorage.setItem('imgData', canvas.toDataURL());
 });
 
 medium.addEventListener('click', function () {
@@ -291,7 +291,18 @@ canvas.onmousedown = function (event) {
         canvas.onmousemove = null;
     };
 };
-
+function fillBucket() {
+    if (currentTool != undefined) { currentTool.style.background = '#ffffff'; };
+    currentTool = bucket;
+    currentTool.style.background = 'rgba(180, 149, 255, 0.5)';
+    let scale = 10 * sizeInput.value;
+    for (let row = 0; row < canvas.height; row++) {
+        for (let col = 0; col < canvas.width; col++) { // Since there are nested arrays we need two for loops
+            ctx.fillStyle = currentColor; // Set the color to the one specified
+            ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
+        }
+    };
+};
 bucket.onmousedown = function () {
     if (currentTool != undefined) { currentTool.style.background = '#ffffff'; };
     currentTool = bucket;
@@ -312,3 +323,14 @@ chooseTool.onmousedown = function () {
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)';
     currentColorTool.style.background = currentColor;
 };
+
+window.onkeyup = function (event) {
+    switch (event.key) {
+        case 'B': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); break;
+        case 'P': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = undefined; break;
+        case 'C': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#choose-color'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; currentTool = chooseToolUse = true; break;
+        case 'b': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); break;
+        case 'p': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = undefined; break;
+        case 'c': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#choose-color'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; chooseToolUse = true; break;
+    }
+}
