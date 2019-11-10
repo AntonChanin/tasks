@@ -238,7 +238,7 @@ document.querySelector('#transform').onmousedown = function () {
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)';
     currentColorTool.style.background = currentColor;
 };
-document.querySelector('#move').onmousedown = function () {
+document.querySelector('#pencil').onmousedown = function () {
     if (currentTool != undefined) { currentTool.style.background = '#ffffff'; };
     currentTool = document.querySelector('#move');
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)';
@@ -279,6 +279,7 @@ canvas.onmousedown = function (event) {
             prevColorTool.style.background = prevColor;
 
         } else {
+            currentTool = document.querySelector('#pencil');
             localStorage.setItem('imgData', canvas.toDataURL());
             let x = event.offsetX;
             let y = event.offsetY;
@@ -326,11 +327,11 @@ chooseTool.onmousedown = function () {
 
 window.onkeyup = function (event) {
     switch (event.key) {
-        case 'B': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); break;
-        case 'P': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = undefined; break;
-        case 'C': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#choose-color'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; currentTool = chooseToolUse = true; break;
-        case 'b': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); break;
-        case 'p': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = undefined; break;
+        case 'B': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); chooseToolUse = false; break;
+        case 'P': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#pencil'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; chooseToolUse = false;  break;
+        case 'C': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#choose-color'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; chooseToolUse = true; break;
+        case 'b': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = bucket; currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; fillBucket(); chooseToolUse = false; break;
+        case 'p': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#pencil'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; chooseToolUse = false; break;
         case 'c': if (currentTool != undefined) { currentTool.style.background = '#ffffff'; }; currentTool = document.querySelector('#choose-color'); currentTool.style.background = 'rgba(180, 149, 255, 0.5)'; chooseToolUse = true; break;
     }
-}
+};

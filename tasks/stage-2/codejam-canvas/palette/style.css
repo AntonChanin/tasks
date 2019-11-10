@@ -142,7 +142,7 @@ section {
     background-position: -4px -33px;
 	margin-left: 10px;
 }
-.move {
+.pencil {
 	background: url(./../data/tools-sprites.png) no-repeat;
     width: 35px;
     height: 35px;
