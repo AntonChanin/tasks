@@ -28,13 +28,6 @@ span {
 	height: 800px;
 	background: url(./data/image.png);
 }
-.head {
-	width: 93vw;
-	padding-left: 5vW;
-	padding-top: 1px;
-	padding-bottom: 1px;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-}
 section {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	margin-top: 10px;
@@ -122,12 +115,12 @@ section {
 }
 .matrixs button {
 	height: 33.3%;
-	background: #ffffff;
+	background: none;
     border: none;
 	font-size: 1.5em;
 }
 .paint-bucket {
-	background: url(./../data/tools-sprites.png) no-repeat;
+	background: url(./data/tools-sprites.png) no-repeat;
     width: 35px;
     height: 35px;
     position: relative;
@@ -135,15 +128,15 @@ section {
 	margin-left: 10px;
 }
 .choose-color {
-	background: url(./../data/tools-sprites.png) no-repeat;
+	background: url(./data/tools-sprites.png) no-repeat;
     width: 35px;
     height: 35px;
     position: relative;
     background-position: -4px -33px;
 	margin-left: 10px;
 }
-.pencil {
-	background: url(./../data/tools-sprites.png) no-repeat;
+.move {
+	background: url(./data/tools-sprites.png) no-repeat;
     width: 35px;
     height: 35px;
     position: relative;
@@ -151,7 +144,7 @@ section {
 	margin-left: 10px;
 }
 .transform {
-	background: url(./../data/tools-sprites.png) no-repeat;
+	background: url(./data/tools-sprites.png) no-repeat;
     width: 35px;
     height: 35px;
     position: relative;
