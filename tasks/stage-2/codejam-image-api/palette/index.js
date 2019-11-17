@@ -1,6 +1,7 @@
 const workSpace = document.querySelector('canvas')
 const matrixs = document.querySelector('.matrixs')
 const colors = document.querySelector('.colors')
+const findLocInput = document.querySelector('.findLoc')
 const sizeInput = document.querySelector('#size')
 const bucket = document.querySelector('#paint-bucket')
 const chooseTool = document.querySelector('#choose-color')
@@ -11,15 +12,17 @@ const medium = matrixs.querySelector('#medium')
 const big = matrixs.querySelector('#big')
 const redChoose = colors.querySelector('#red')
 const blueChoose = colors.querySelector('#blue')
-const ref4x =
+const toolsList = ['#current-color', '#prev-color', '#red', '#blue', '#choose-color', '#transform', '#pencil', '#small', '#medium', '#big']
+const ref4X =
   'https://raw.githubusercontent.com/AntonChanin/tasks/master/tasks/stage-2/codejam-canvas/data/4x4.json'
 const ref32X =
   'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/stage-2/codejam-canvas/data/32x32.json'
-const url =
+var url =
   'https://api.unsplash.com/photos/random?query=town,Minsk&client_id=fec156f271c0811c8231098435c111c587352eaffae03b1d3a898cc877dd1b33'
 
-var currentColor = 'green'
 var prevColor = undefined
+var currentColor = 'green'
+var currentPlace = 'Minsk'
 var currentTool = undefined
 var canvas = document.querySelector('canvas')
 var ctx = canvas.getContext('2d')
@@ -29,11 +32,11 @@ workSpace.addEventListener('mousedown', down)
 workSpace.addEventListener('mouseup', toggledraw)
 currentColorTool.style.background = currentColor
 
-var getJSON = function(url, callback) {
+function getJSON(url, callback) {
   var xhr = new XMLHttpRequest()
   xhr.open('GET', url, true)
   xhr.responseType = 'json'
-  xhr.onload = function() {
+  xhr.onload = () => {
     var status = xhr.status
     if (status == 200) {
       callback(null, xhr.response)
@@ -42,6 +45,41 @@ var getJSON = function(url, callback) {
     }
   }
   xhr.send()
+}
+
+function settingImg(data, colorFormat) {
+    const size = sizeInput.value === '' ? 1 : sizeInput.value
+    const width = data[0].length
+    const height = data.length
+    const  scale = 10 * size 
+
+    workSpace.width = width * scale
+    workSpace.height = height * scale
+
+    for (let row = 0; row < height; row++) {
+        for (let col = 0; col < width; col++) {
+            ctx.fillStyle = colorFormat === 'hex' 
+                ? '#' + data[row][col]
+                : 'rgba(' + data[row][col] + ')'
+            ctx.fillRect(col * scale, row * scale, scale, scale)
+        }
+    }
+    localStorage.setItem('imgData', canvas.toDataURL())
+}
+
+function printErrorMessage(err) {
+    alert('Something went wrong: ' + err)
+}
+
+function selectTool(selector) {
+    document.querySelector(selector).onmousedown = () => {
+        if (currentTool != undefined) {
+            currentTool.style.background = '#ffffff'
+        }
+        currentTool = document.querySelector(selector)
+        currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
+        currentColorTool.style.background = currentColor
+    }
 }
 
 let idt = localStorage.getItem('imgData') || null
@@ -53,84 +91,33 @@ if (idt !== null) {
   }
 }
 
-small.addEventListener('click', function() {
-  getJSON(ref4x, function(err, data) {
-    if (err != null) {
-      alert('Something went wrong: ' + err)
-    } else {
-      let size = 1
-      if (sizeInput.value == '') {
-        size = 1
-      } else {
-        size = sizeInput.value
-      }
-      let width = data[0].length, // Get the width of the array
-        height = data.length, // Get the height of the array
-        scale = 10 * size // Scales the whole image by this amount, set to 1 for default size
-      // Make sure the canvas is no larger than the size we need
-      workSpace.width = width * scale
-      workSpace.height = height * scale
-      // Loop through each color and draw that section
-      for (let row = 0; row < height; row++) {
-        for (let col = 0; col < width; col++) {
-          // Since there are nested arrays we need two for loops
-          ctx.fillStyle = '#' + data[row][col] // Set the color to the one specified
-          ctx.fillRect(col * scale, row * scale, scale, scale) // Actually draw the rectangle
-        }
-      }
-      localStorage.setItem('imgData', canvas.toDataURL())
-    }
+small.addEventListener('click', () => {
+  getJSON(ref4X, (err, data) => {
+     err ? printErrorMessage(err) : settingImg(data, 'hex')
   })
 })
 
-medium.addEventListener('click', function() {
-  getJSON(ref32X, function(err, data) {
-    if (err != null) {
-      alert('Something went wrong: ' + err)
-    } else {
-      let size = 1
-      if (sizeInput.value == '') {
-        size = 1
-      } else {
-        size = sizeInput.value
-      }
-      ;(width = data[0].length), // Get the width of the array
-        (height = data.length), // Get the height of the array
-        (scale = 10 * size) // Scales the whole image by this amount, set to 1 for default size
-      // Make sure the canvas is no larger than the size we need
-      workSpace.width = width * scale
-      workSpace.height = height * scale
-
-      // Loop through each color and draw that section
-      for (let row = 0; row < height; row++) {
-        for (let col = 0; col < width; col++) {
-          // Since there are nested arrays we need two for loops
-          ctx.fillStyle = 'rgba(' + data[row][col] + ')' // Set the color to the one specified
-          ctx.fillRect(col * scale, row * scale, scale, scale) // Actually draw the rectangle
-        }
-      }
-      localStorage.setItem('imgData', canvas.toDataURL())
-    }
+medium.addEventListener('click', () => {
+  getJSON(ref32X, (err, data) => {
+      err ? printErrorMessage(err) : settingImg(data, 'rgba')
   })
-  workSpace.classList.remove('big')
 })
 
-big.addEventListener('click', function() {
-  let size = 1
-  if (sizeInput.value == '') {
-    size = 1
-  } else {
-    size = sizeInput.value
-  }
-  let width = 256, // Get the width of the array
-    height = 256, // Get the height of the array
-    scale = 1 * size // Scales the whole image by this amount, set to 1 for default size
-  // Make sure the canvas is no larger than the size we need
+big.addEventListener('click', () => {
+
+  const size = sizeInput.value === '' ? 1 : sizeInput.value
+  const width = 256 
+  const height = 256 
+  const scale = 1 * size
+
   workSpace.width = width * scale
   workSpace.height = height * scale
+
   drawing = new Image()
-  drawing.src = './data/image.png' // can also be a remote URL e.g. http://
-  drawing.onload = function() {
+  drawing.setAttribute('crossOrigin', '')
+  drawing.src = './data/image.png'
+  drawing.classList.add('trueSize')
+  drawing.onload = () => {
     ctx.drawImage(drawing, 0, 0)
   }
   localStorage.setItem('imgData', canvas.toDataURL())
@@ -182,89 +169,10 @@ function chooseColor(context) {
   ctx.fillStyle = currentColor
 }
 
-document.querySelector('#current-color').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#current-color')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#prev-color').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#prev-color')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#red').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#red')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#blue').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#blue')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#choose-color').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#choose-color')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#transform').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#transform')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#pencil').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#move')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#small').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#small')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#medium').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#medium')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
-document.querySelector('#big').onmousedown = function() {
-  if (currentTool != undefined) {
-    currentTool.style.background = '#ffffff'
-  }
-  currentTool = document.querySelector('#big')
-  currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-  currentColorTool.style.background = currentColor
-}
+toolsList.map((item) => {selectTool(item)})
 
-canvas.onmousedown = function(event) {
-  canvas.onmousemove = function(event) {
+canvas.onmousedown = (event) => {
+  canvas.onmousemove = (event) => {
     if (chooseToolUse) {
       let index =
         (Math.floor(event.offsetY) * canvas.width + Math.floor(event.offsetX)) *
@@ -289,7 +197,7 @@ canvas.onmousedown = function(event) {
       ctx.fill()
     }
   }
-  canvas.onmouseup = function() {
+  canvas.onmouseup = () => {
     canvas.onmousemove = null
   }
 }
@@ -302,13 +210,12 @@ function fillBucket() {
   let scale = 10 * sizeInput.value
   for (let row = 0; row < canvas.height; row++) {
     for (let col = 0; col < canvas.width; col++) {
-      // Since there are nested arrays we need two for loops
-      ctx.fillStyle = currentColor // Set the color to the one specified
-      ctx.fillRect(col * scale, row * scale, scale, scale) // Actually draw the rectangle
+      ctx.fillStyle = currentColor 
+      ctx.fillRect(col * scale, row * scale, scale, scale) 
     }
   }
 }
-bucket.onmousedown = function() {
+bucket.onmousedown = () => {
   if (currentTool != undefined) {
     currentTool.style.background = '#ffffff'
   }
@@ -317,14 +224,13 @@ bucket.onmousedown = function() {
   let scale = 10 * sizeInput.value
   for (let row = 0; row < canvas.height; row++) {
     for (let col = 0; col < canvas.width; col++) {
-      // Since there are nested arrays we need two for loops
-      ctx.fillStyle = currentColor // Set the color to the one specified
-      ctx.fillRect(col * scale, row * scale, scale, scale) // Actually draw the rectangle
+      ctx.fillStyle = currentColor 
+      ctx.fillRect(col * scale, row * scale, scale, scale) 
     }
   }
 }
 
-chooseTool.onmousedown = function() {
+chooseTool.onmousedown = () => {
   chooseToolUse = true
   if (currentTool != undefined) {
     currentTool.style.background = '#ffffff'
@@ -334,7 +240,7 @@ chooseTool.onmousedown = function() {
   currentColorTool.style.background = currentColor
 }
 
-window.onkeyup = function(event) {
+window.onkeyup = (event) => {
   switch (event.key) {
     case 'B':
       if (currentTool != undefined) {
@@ -390,10 +296,15 @@ window.onkeyup = function(event) {
 }
 
 function getLinkToImage() {
+    let findPlace = findLocInput.value
+    if (findPlace !== '') {
+        url = url.replace(currentPlace, findPlace)
+        currentPlace = findPlace
+    }
+    
     fetch(url)
       .then(res => res.json())
       .then(data => {
-          console.log(data.urls.small)
           ctx.clearRect(0, 0, canvas.width, canvas.height)
           let size = 1
           if (sizeInput.value == '') {
@@ -401,17 +312,13 @@ function getLinkToImage() {
           } else {
               size = sizeInput.value
           }
-         // let width = 256, // Get the width of the array
-          //    height = 256, // Get the height of the array
-         //     scale = 1 * size // Scales the whole image by this amount, set to 1 for default size
-          // Make sure the canvas is no larger than the size we need
-         // workSpace.width = width * scale
-          //workSpace.height = height * scale
           drawing = new Image()
-          drawing.src = data.urls.small // can also be a remote URL e.g. http://
-          drawing.onload = function () {
-              ctx.drawImage(drawing, 0, 0)
+          drawing.setAttribute('crossOrigin', '')
+          drawing.src = data.urls.small
+          drawing.classList.add('trueSize')
+          drawing.onload = () => {
+            ctx.drawImage(drawing, 0, 0)
           }
-          localStorage.setItem('imgData', canvas.toDataURL())
+          localStorage.setItem('imgData', drawing.src)
       });
 }
