@@ -15,7 +15,7 @@ canvas {
 	width: 30vw;
     height: 56vh;
 }
-span {
+.button-label {
 	position: relative;
     left: 30%;
     bottom: 40px;
@@ -28,7 +28,7 @@ span {
 	height: 800px;
 	background: url(./data/image.png);
 }
-section {
+.colors, .tools, .matrixs {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	margin-top: 10px;
 	margin-bottom: 10px;
