@@ -7,7 +7,10 @@
   "scripts": {
     "lint": "eslint index.js",
     "lintFix": "eslint --write index.js",
+	"prettier": "prettier es5 --write  *.js",
+	"prettierCheck": "prettier --check *.js",
     "webpack": "webpack"
+	
   },
   "dependencies": {},
   "devDependencies": {
