@@ -40,20 +40,20 @@ var prevColor = localStorage.getItem('prevColorState')
 var currentColor = localStorage.getItem('currentColorState') || 'green'
 var currentPlace = 'Minsk'
 var currentTool = undefined
-
 var md = false
 var chooseToolUse = false
+var pixelSize = 1
 
 workSpace.addEventListener('mousedown', down)
 workSpace.addEventListener('mouseup', toggledraw)
 currentColorTool.style.background = currentColor
 
 function getJSON(url, callback) {
-  var xhr = new XMLHttpRequest()
+  let xhr = new XMLHttpRequest()
   xhr.open('GET', url, true)
   xhr.responseType = 'json'
   xhr.onload = () => {
-    var status = xhr.status
+    let status = xhr.status
     if (status == 200) {
       callback(null, xhr.response)
     } else {
@@ -169,17 +169,20 @@ if (idt !== null) {
 
 small.addEventListener('click', () => {
   getJSON(ref4X, (err, data) => {
+    pixelSize = 128
     err ? printErrorMessage(err) : settingImg(data, 'hex')
   })
 })
 
 medium.addEventListener('click', () => {
   getJSON(ref32X, (err, data) => {
+    pixelSize = 256
     err ? printErrorMessage(err) : settingImg(data, 'rgba')
   })
 })
 
 big.addEventListener('click', () => {
+  pixelSize = 512
   settingImgSrc(256)
 })
 
@@ -270,7 +273,6 @@ bucket.onmousedown = () => {
       ctx.fillRect(col * scale, row * scale, scale, scale)
     }
   }
-  localStorage.setItem('imgData', canvas.toDataURL())
 }
 
 chooseTool.onmousedown = () => {
@@ -367,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     await fetch(url)
       .then(res => res.json())
       .then(data => {
-        settingImgSrc(256, data.urls.small)
+        settingImgSrc(pixelSize, data.urls.small)
       })
   }
 })
