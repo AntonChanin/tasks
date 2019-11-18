@@ -6,6 +6,7 @@ const sizeInput = document.querySelector('#size')
 const load = document.querySelector('#load')
 const bucket = document.querySelector('#paint-bucket')
 const chooseTool = document.querySelector('#choose-color')
+const pencil = document.querySelector('#pencil')
 const currentColorTool = document.querySelector('.current-color')
 const prevColorTool = document.querySelector('.prev-color')
 const small = matrixs.querySelector('#small')
@@ -103,6 +104,30 @@ function selectTool(selector) {
     }
 }
 
+function chooseColor(context) {
+    if (context == redChoose) {
+        prevColor = currentColor
+        currentColor = 'red'
+        currentColorTool.style.background = currentColor
+        prevColorTool.style.background = prevColor
+    } else if (context == blueChoose) {
+        prevColor = currentColor
+        currentColor = 'blue'
+        currentColorTool.style.background = currentColor
+        prevColorTool.style.background = prevColor
+    } else if (context == currentColor) {
+        prevColor = currentColor
+        currentColorTool.style.background = currentColor
+        prevColorTool.style.background = prevColor
+    } else {
+        currentColor = prevColor
+        prevColor = currentColor
+        currentColorTool.style.background = currentColor
+        prevColorTool.style.background = prevColor
+    }
+    ctx.fillStyle = currentColor
+}
+
 let idt = localStorage.getItem('imgData') || null
 if (idt !== null) {
   let img = new Image()
@@ -150,30 +175,6 @@ function draw(canvas, posx, posy) {
     }
 }
 
-function chooseColor(context) {
-    if (context == redChoose) {
-        prevColor = currentColor
-        currentColor = 'red'
-        currentColorTool.style.background = currentColor
-        prevColorTool.style.background = prevColor
-    } else if (context == blueChoose) {
-        prevColor = currentColor
-        currentColor = 'blue'
-        currentColorTool.style.background = currentColor
-        prevColorTool.style.background = prevColor
-    } else if (context == currentColor) {
-        prevColor = currentColor
-        currentColorTool.style.background = currentColor
-        prevColorTool.style.background = prevColor
-    } else {
-        currentColor = prevColor
-        prevColor = currentColor
-        currentColorTool.style.background = currentColor
-        prevColorTool.style.background = prevColor
-    }
-    ctx.fillStyle = currentColor
-}
-
 toolsList.map((item) => {selectTool(item)})
 
 canvas.onmousedown = (event) => {
@@ -207,12 +208,13 @@ canvas.onmousedown = (event) => {
     }
 }
 function fillBucket() {
+    const size = (sizeInput.value === '') ? 1 : sizeInput.value
+    const scale = 10 * size
     if (currentTool != undefined) {
         currentTool.style.background = '#ffffff'
     }
     currentTool = bucket
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-    let scale = 10 * sizeInput.value
     for (let row = 0; row < canvas.height; row++) {
         for (let col = 0; col < canvas.width; col++) {
             ctx.fillStyle = currentColor 
@@ -221,12 +223,14 @@ function fillBucket() {
     }
 }
 bucket.onmousedown = () => {
+    const size = (sizeInput.value === '') ? 1 : sizeInput.value
+    const scale = 10 * size
     if (currentTool != undefined) {
         currentTool.style.background = '#ffffff'
     }
     currentTool = bucket
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
-    let scale = 10 * sizeInput.value
+    
     for (let row = 0; row < canvas.height; row++) {
         for (let col = 0; col < canvas.width; col++) {
             ctx.fillStyle = currentColor 
@@ -240,7 +244,7 @@ chooseTool.onmousedown = () => {
     if (currentTool != undefined) {
         currentTool.style.background = '#ffffff'
     }
-    currentTool = document.querySelector('#choose-color')
+    currentTool = chooseTool
     currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
     currentColorTool.style.background = currentColor
 }
@@ -260,7 +264,7 @@ window.onkeyup = (event) => {
         if (currentTool != undefined) {
             currentTool.style.background = '#ffffff'
         }
-        currentTool = document.querySelector('#pencil')
+        currentTool = pencil
         currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
         chooseToolUse = false
         break
@@ -268,7 +272,7 @@ window.onkeyup = (event) => {
         if (currentTool != undefined) {
             currentTool.style.background = '#ffffff'
         }
-        currentTool = document.querySelector('#choose-color')
+        currentTool = chooseTool
         currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
         chooseToolUse = true
         break
@@ -285,7 +289,7 @@ window.onkeyup = (event) => {
         if (currentTool != undefined) {
             currentTool.style.background = '#ffffff'
         }
-        currentTool = document.querySelector('#pencil')
+        currentTool = pencil
         currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
         chooseToolUse = false
         break
@@ -293,7 +297,7 @@ window.onkeyup = (event) => {
         if (currentTool != undefined) {
             currentTool.style.background = '#ffffff'
         }
-        currentTool = document.querySelector('#choose-color')
+        currentTool = chooseTool
         currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
         chooseToolUse = true
         break
@@ -301,7 +305,10 @@ window.onkeyup = (event) => {
 }
 document.addEventListener('DOMContentLoaded',  () => {
     load.addEventListener('click', () => { getLinkToImage()})
-    
+    redChoose.addEventListener('click', () => {chooseColor(redChoose)})
+    blueChoose.addEventListener('click', () => {chooseColor(blueChoose)})
+    currentColor.addEventListener('click', () => {chooseColor(currentColor)})
+    prevColor.addEventListener('click', () => {chooseColor(prevColor)})
     async function getLinkToImage()  {
         let findPlace = findLocInput.value
         if (findPlace !== '') {
