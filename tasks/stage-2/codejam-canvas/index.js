@@ -31,69 +31,53 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 
-small.addEventListener('click', function () {
-    getJSON(ref4X,
-    function (err, data) {
-        if (err !== null) {
-            alert('Something went wrong: ' + err);
-        } else {
-            let size = 1;
-            if (sizeInput.value == '') {
-                size = 1;
-            } else {
-                size = sizeInput.value;
-            }
-        let width = data[0].length, // Get the width of the array
-            height = data.length, // Get the height of the array
-            scale = 10 * size; // Scales the whole image by this amount, set to 1 for default size
-            // Make sure the canvas is no larger than the size we need
-            workSpace.width = width * scale;
-            workSpace.height = height * scale;
+function settingImg(data, colorFormat) {
+    const size = sizeInput.value === '' ? 1 : sizeInput.value
+    const width = data[0].length
+    const height = data.length
+    const scale = 10 * size
 
-            // Loop through each color and draw that section
-            for (let row = 0; row < height; row++) {
-                for (let col = 0; col < width; col++) { // Since there are nested arrays we need two for loops
-                    ctx.fillStyle ='#' + data[row][col]; // Set the color to the one specified
-                    ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
-                }
-            };
+    workSpace.width = width * scale
+    workSpace.height = height * scale
+
+    for (let row = 0; row < height; row++) {
+        for (let col = 0; col < width; col++) {
+            ctx.fillStyle = colorFormat === 'hex'
+                ? '#' + data[row][col]
+                : 'rgba(' + data[row][col] + ')'
+            ctx.fillRect(col * scale, row * scale, scale, scale)
         }
-    });
+    }
+}
 
+function printErrorMessage(err) {
+    alert('Something went wrong: ' + err)
+}
+
+function selectTool(selector) {
+    document.querySelector(selector).onmousedown = () => {
+        if (currentTool != undefined) {
+            currentTool.style.background = '#ffffff'
+        }
+        currentTool = document.querySelector(selector)
+        currentTool.style.background = 'rgba(180, 149, 255, 0.5)'
+        currentColorTool.style.background = currentColor
+    }
+}
+
+small.addEventListener('click', () => {
+    getJSON(ref4X, (err, data) => {
+        err ? printErrorMessage(err) : settingImg(data, 'hex')
+    })
 })
 
-medium.addEventListener('click', function () {
-    getJSON(ref32X,
-    function (err, data) {
-        if (err !== null) {
-            alert('Something went wrong: ' + err);
-        } else {
-            let size = 1;
-            if (sizeInput.value == '') {
-                size = 1;
-            } else {
-                size = sizeInput.value;
-            }
-        let width = data[0].length, // Get the width of the array
-            height = data.length, // Get the height of the array
-            scale = 10 * size; // Scales the whole image by this amount, set to 1 for default size
-            // Make sure the canvas is no larger than the size we need
-            workSpace.width = width * scale;
-            workSpace.height = height * scale;
-
-            // Loop through each color and draw that section
-            for (let row = 0; row < height; row++) {
-                for (let col = 0; col < width; col++) { // Since there are nested arrays we need two for loops
-                    ctx.fillStyle = 'rgba(' + data[row][col] + ')'; // Set the color to the one specified
-                    ctx.fillRect(col * scale, row * scale, scale, scale); // Actually draw the rectangle 
-                }
-            };
-        }
-    });
-    workSpace.classList.remove('big');
+medium.addEventListener('click', () => {
+    getJSON(ref32X, (err, data) => {
+        err ? printErrorMessage(err) : settingImg(data, 'rgba')
+    })
 })
 
-big.addEventListener('click', function () {
+big.addEventListener('click', () => {
     let size = 1;
     if (sizeInput.value == '') {
         size = 1;
@@ -106,15 +90,15 @@ big.addEventListener('click', function () {
     // Make sure the canvas is no larger than the size we need
         workSpace.width = width * scale;
         workSpace.height = height * scale;
-    drawing = new Image();
-    drawing.src = "./data/image.png"; // can also be a remote URL e.g. http://
-    drawing.onload = function () {
+        drawing = new Image();
+        drawing.src = "./data/image.png"; // can also be a remote URL e.g. http://
+        drawing.onload = () => {
         ctx.drawImage(drawing, 0, 0);
     }
 })
 
 workSpace.addEventListener('mousemove',
-    function(evt) {
+    (evt) => {
         let mousePos = getMousePos(workSpace, evt);
         let posx = mousePos.x;
         let posy = mousePos.y;
@@ -138,9 +122,8 @@ function getMousePos(canvas, evt) {
 }
 
 function draw(canvas, posx, posy) {
-    let context = canvas.getContext('2d');
     if (md) {
-        context.fillRect(posx, posy, 4, 4);
+        ctx.fillRect(posx, posy, 4, 4);
     }
 }
 
