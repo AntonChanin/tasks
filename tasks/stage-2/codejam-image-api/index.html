@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="./palette/style.css">
+    <title>Canvas</title>
+</head>
+<body>
+    <section class="head"><h1>Canvas Palette</h1></section>
+    <section class="tools">
+        <button id="paint-bucket"><div class="paint-bucket"></div>Paint bucket (B)</button>
+        <button id="choose-color"><div class="choose-color"></div>Choose color (C)</button>
+        <button id="pencil"><div class="pencil"></div>Pencil (P)</button>
+        <button id="transform"><div class="transform"></div>Transform (T)</button>
+    </section>
+    <section class="colors">
+        <button id="current-color">
+            <div class="current-color"></div>
+            <span class="button-label">current color</span>
+        </button>
+        <button id="prev-color">
+            <div class="prev-color"></div>
+            <span class="button-label"> prev color</span>
+        </button>
+        <button id="red">
+            <div class="red"></div>
+            <span class="button-label">red</span>
+        </button>
+        <button id="blue">
+            <div class="blue"></div>
+            <span class="button-label">blue</span>
+        </button>
+    </section>
+    <section class="load">
+        <button id="load">Load</button> 
+        <input class="findLoc" type="text"> 
+        <button id="blackAndWhite" >B&W</button>
+    </section>   
+    <canvas id="draw" width="512" height="512"></canvas>
+    <section class="matrixs">
+        <button id="small">4x4</button>
+        <button id="medium">32x32</button>
+        <button id="big">256x256</button>
+        <input id="size" type="number" placeholder="write you dynamic size">
+    </section>
+    <script type="text/javascript" src="./dist/index.js"></script>
+</body>
+</html>

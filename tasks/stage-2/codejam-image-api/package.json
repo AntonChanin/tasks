@@ -1,0 +1,22 @@
+{
+  "name": "canvas-api",
+  "version": "1.0.0",
+  "description": "canvas with api",
+  "main": "palette/index.js",
+  "private": true,
+  "scripts": {
+    "lint": "eslint index.js",
+    "lintFix": "eslint --write index.js",
+	"prettier": "prettier es5 --write  *.js",
+	"prettierCheck": "prettier --check *.js",
+    "webpack": "webpack"
+	
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "prettier": "^1.19.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
