@@ -169,21 +169,24 @@ if (idt !== null) {
 
 small.addEventListener('click', () => {
   getJSON(ref4X, (err, data) => {
-    pixelSize = 128
-    err ? printErrorMessage(err) : settingImg(data, 'hex')
+      pixelSize = 128
+      ctx.drawImage(img, 0, 0, 128, 128)
+  //  err ? printErrorMessage(err) : settingImg(data, 'hex')
   })
 })
 
 medium.addEventListener('click', () => {
   getJSON(ref32X, (err, data) => {
-    pixelSize = 256
-    err ? printErrorMessage(err) : settingImg(data, 'rgba')
+      pixelSize = 256 
+      ctx.drawImage(img, 0, 0, 256, 256)
+   // err ? printErrorMessage(err) : settingImg(data, 'rgba')
   })
 })
 
 big.addEventListener('click', () => {
-  pixelSize = 512
-  settingImgSrc(256)
+    pixelSize = 512
+    ctx.drawImage(img, 0, 0, 512, 512)
+  //settingImgSrc(256)
 })
 
 function down() {
